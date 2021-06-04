@@ -1,25 +1,35 @@
 const express =require ('express')
 const app = express()
-const cors = require("cors")
-const bodyParser = require("body-parser");
+const cors = require("cors");
 
+const { json } = require('body-parser');
+
+//middlewares
+app.use(json())
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 
-app.post('/string/get', (req,res) => {
-    const String = req.body.string;
+
+app.post('/string', (req,res) => {
+    let String = req.body.string;
     res.send(String);
-    console.log(string);
+    console.log(String);
+    //res.send("waiting for string");
 })
 
 
+
 app.post('/addition', (req, res) =>{
-    const Firstnumber = req.body.firstnumber;
-    const Secondnumber = req.body.secondnumber;
-    const sum = Firstnumber + Secondnumber;
-    res.send(sum);
-    console.log(sum);
+    Firstnumber = parseInt(req.body.firstnumber)
+  
+    Secondnumber  = parseInt(req.body.secondnumber)
+   
+    sum = Number(Firstnumber + Secondnumber)
+  
+    res.send(JSON.stringify(sum));
+    console.log(sum)
+    
 })
 
 app.post('/', (req, res) => {
@@ -27,5 +37,6 @@ app.post('/', (req, res) => {
 })
 
 app.listen(5001, () => {
-    console.log('App running on port: ${PORT}')
+    console.log('App running on port: 5001');
+
 })
